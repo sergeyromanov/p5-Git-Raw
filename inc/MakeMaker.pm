@@ -17,11 +17,6 @@ use File::Basename qw(basename dirname);
 
 use Devel::CheckLib;
 
-# compiler detection
-my $is_gcc = length($Config{gccversion});
-my $is_msvc = $Config{cc} eq 'cl' ? 1 : 0;
-my $is_sunpro = (length($Config{ccversion}) && !$is_msvc) ? 1 : 0;
-
 # os detection
 my $is_solaris = ($^O =~ /(sun|solaris)/i) ? 1 : 0;
 my $is_windows = ($^O =~ /MSWin32/i) ? 1 : 0;
@@ -29,6 +24,26 @@ my $is_linux = ($^O =~ /linux/i) ? 1 : 0;
 my $is_osx = ($^O =~ /darwin/i) ? 1 : 0;
 my $is_gkfreebsd = ($^O =~ /gnukfreebsd/i) ? 1 : 0;
 my $is_netbsd = ($^O =~ /netbsd/i) ? 1 : 0;
+
+# compiler detection
+if (!exists ($Config{cc}) || !defined ($Config{cc})) {
+	# This is typical of an ActivePerl installation where the 'dmake' and 'MinGW'
+	# packages have not (yet) been installed
+	print STDERR "Looks like your perl does not have its compiler set.\n";
+	print STDERR "I require a working compiler!\n\n";
+
+	if ($is_windows) {
+		print STDERR "You probably need to run the following commands to get a ".
+			"working compiler:\n";
+		print STDERR "    ppm install dmake\n";
+		print STDERR "    ppm install MinGW\n";
+	}
+	exit(1);
+}
+
+my $is_gcc = length($Config{gccversion});
+my $is_msvc = $Config{cc} eq 'cl' ? 1 : 0;
+my $is_sunpro = (length($Config{ccversion}) && !$is_msvc) ? 1 : 0;
 
 # allow the user to override/specify the locations of OpenSSL, libssh2 and libcurl
 our $opt = {};
