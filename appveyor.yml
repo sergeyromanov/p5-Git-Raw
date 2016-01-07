@@ -1,15 +1,13 @@
-cache:
- - C:\projects\sources
-
 install:
- - if not exist "C:\projects\sources" mkdir "C:\projects\sources"
- - cd C:\projects\sources
+ # ActivePerl
+ - cinst activeperl
+ - perl -V
 
- # Perl
- - ps: Start-FileDownload http://strawberryperl.com/download/5.20.1.1/strawberry-perl-5.20.1.1-64bit.msi
- - msiexec /i "C:\projects\sources\strawberry-perl-5.20.1.1-64bit.msi" /qn INSTALLDIR="C:\projects\perl"
+ # Strawberry
+ - cinst strawberryperl
+ - set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
+ - perl -V
 
- - set PATH=C:\projects\perl\perl\bin;C:\projects\perl\perl\site\bin;C:\projects\perl\c\bin;%PATH%
  - cd C:\projects\p5-Git-Raw
 
  - git config --global user.name "p5-Git-Raw"
