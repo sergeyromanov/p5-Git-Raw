@@ -8,6 +8,7 @@ XSLoader::load('Git::Raw', $Git::Raw::VERSION);
 
 use Git::Raw::Error;
 use Git::Raw::Error::Category;
+use Git::Raw::AnnotatedCommit;
 use Git::Raw::Packbuilder;
 use Git::Raw::Blob;
 use Git::Raw::Commit;
@@ -15,6 +16,7 @@ use Git::Raw::Index;
 use Git::Raw::Indexer;
 use Git::Raw::Odb;
 use Git::Raw::Mempack;
+use Git::Raw::Rebase;
 use Git::Raw::Reference;
 use Git::Raw::Repository;
 use Git::Raw::Stash;
