@@ -3,11 +3,19 @@ v0.25 + 1
 
 ### Changes or improvements
 
+* `GIT_MERGE_OPTIONS_INIT` now includes a setting to perform rename detection.
+  This aligns this structure with the default by `git_merge` and
+  `git_merge_trees` when `NULL` was provided for the options.
+
 ### API additions
 
 ### API removals
 
 ### Breaking API changes
+
+* `clone_checkout_strategy` has been removed from
+  `git_submodule_update_option`. The checkout strategy used to clone will
+  be the same strategy specified in `checkout_opts`.
 
 v0.25
 -------
